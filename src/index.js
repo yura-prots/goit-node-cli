@@ -1,6 +1,11 @@
 import { program } from "commander";
 
-import { listContacts, getContactById, addContact } from "./contacts.js";
+import {
+  listContacts,
+  getContactById,
+  addContact,
+  removeContact,
+} from "./contacts.js";
 
 program
   .option("-a, --action <type>", "choose action")
@@ -34,7 +39,9 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      // ... id
+      const contactToDelete = await removeContact(id);
+
+      console.log(contactToDelete);
       break;
 
     default:
