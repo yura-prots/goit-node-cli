@@ -1,16 +1,27 @@
 import fs from "fs/promises";
 import path from "path";
 
-const contactsPath = path.resolve("db", "./contacts.json");
+const contactsPath = path.resolve("db", "contacts.json");
 
 async function listContacts() {
-  const data = await fs.readFile(contactsPath);
+  try {
+    const data = await fs.readFile(contactsPath);
 
-  return JSON.parse(data);
+    return JSON.parse(data);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function getContactById(contactId) {
-  // ...твій код. Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
+  try {
+    const contacts = await listContacts();
+    const result = contacts.find((item) => item.id === contactId);
+
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function removeContact(contactId) {
@@ -21,4 +32,4 @@ async function addContact(name, email, phone) {
   // ...твій код. Повертає об'єкт доданого контакту (з id).
 }
 
-export { listContacts };
+export { listContacts, getContactById, removeContact, addContact };
