@@ -6,7 +6,12 @@ const contactsPath = path.resolve("db", "contacts.json");
 
 async function updateContacts(contacts) {
   try {
-    fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+    const updatedList = await fs.writeFile(
+      contactsPath,
+      JSON.stringify(contacts, null, 2)
+    );
+
+    return updatedList;
   } catch (error) {
     console.log(error);
   }
