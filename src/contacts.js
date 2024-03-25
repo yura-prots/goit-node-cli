@@ -1,12 +1,12 @@
-// contacts.js
+import fs from "fs/promises";
+import path from "path";
 
-/*
- * Розкоментуй і запиши значення
- * const contactsPath = ;
- */
+const contactsPath = path.resolve("db", "./contacts.json");
 
 async function listContacts() {
-  // ...твій код. Повертає масив контактів.
+  const data = await fs.readFile(contactsPath);
+
+  return JSON.parse(data);
 }
 
 async function getContactById(contactId) {
@@ -20,3 +20,5 @@ async function removeContact(contactId) {
 async function addContact(name, email, phone) {
   // ...твій код. Повертає об'єкт доданого контакту (з id).
 }
+
+export { listContacts };
